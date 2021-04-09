@@ -234,14 +234,13 @@ First, I need to feed A and B coefficients of the curve in the previous frame. S
     rightx = nonzerox[right_lane_inds]
     righty = nonzeroy[right_lane_inds]
 ```
-Here, I feed previous frame fit pixels to calculate the previous curve
-
+Here, I feed previous frame fit pixels to calculate the previous curve.
 ```
     self.pre_left_fitx = None
     self.pre_right_fitx = None
     self.pre_ploty = None
 ```
-then apply 'np.polyfit' to get new A and B coefficient. so got new curve fit pixels.
+then apply 'np.polyfit' to get the new A and B coefficient. so got new curve fit pixels.
 ```
 def fit_poly(img_shape, leftx, lefty, rightx, righty):
     left_fit = np.polyfit(lefty, leftx, 2)
@@ -258,16 +257,15 @@ def fit_poly(img_shape, leftx, lefty, rightx, righty):
 ```
 ![Search prior][image10]
 
-
 #### 5. Calculated the radius of curvature of the lane and the position of the vehicle with respect to center
 ![alt text][image11]
-Calculated the radius of curvature as formula
+Calculated the radius of curvature as a formula
 ```
 # Compute curvature radius
 left_curv_radius = ((1 + (2*left_fit_converted[0]*yvalue + left_fit_converted[1])**2)**1.5) / (2*np.absolute(left_fit_converted[0]))
 right_curv_radius = ((1 + (2*right_fit_converted[0]*yvalue + right_fit_converted[1])**2)**1.5) / (2*np.absolute(right_fit_converted[0]))
 ```
-Compute distance in meters of vehicle center from the line
+Compute distance in meters of vehicle center from the line.
 ```    
 # Compute distance in meters of vehicle center from the line
 car_center = img.shape[1]/2  # we assume the camera is centered in the car
@@ -277,7 +275,7 @@ center_dist = (lane_center - car_center)* xm_per_pix
 
 #### 6. an example image of result plotted back down onto the road.
 
-I implemented this step in lines # through # in my code in `main.py` in the function `draw_detected_lane(self, left_fitx, right_fitx, ploty)`.  Here is an example of my result on a test image:
+I implemented this step in lines # through # in my code in main.py in the function draw_detected_lane(self, left_fitx, right_fitx, plot). Here is an example of my result on a test image:
 
 ![Plotted back][image12]
 
